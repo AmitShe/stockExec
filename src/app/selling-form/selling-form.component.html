@@ -8,12 +8,16 @@
         | async)?.symbol}}) </label>
     </div>
     <div>
-      <label for="buyPrice">Stock price: {{(selectedStockFromServerObservite | async)?.currentPrice | currency}}</label>
+      <label for="buyPrice">Stock current price: {{(selectedStockFromServerObservite | async)?.currentPrice | currency}}</label>
+    </div>
+    <div>
+      <label for="avgPrice">Stock Avg buying price: {{avgPrice | currency}}</label>
+      <label *ngIf="current > avgPrice" for="test1" style="color: lightgreen"> current more then avg</label>
+      <label *ngIf="current < avgPrice" for="test2" style="color: red"> current less then avg</label>
     </div>
     <div>
         <label for="HowMuchYouHaveToSell">How much you have to sell: {{selectedStockQuantityFromServerObservite | async}}</label>
       </div>
-      
     <div>
         <mat-form-field class="example-full-width">
       <input type="text" matInput placeholder="how much to sell" formControlName="howMuchToSell">

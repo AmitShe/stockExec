@@ -17,7 +17,7 @@ export class StockInfoComponent implements OnInit {
 
   selectStockToBuy(selectedStock: Stock){
     this.stockService.updateSelectedStock(selectedStock);
-    this.router.navigate(['/', 'buy']);
+    this.router.navigate(['/', 'buy', selectedStock.currentPrice]);
   }
 
   // selectStockToSell(selectedStock: Stock){

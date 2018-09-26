@@ -13,10 +13,10 @@ export const ROUTES: Route[] = [
         path: 'history', component: BuySellHistoryComponent
     },
     {
-        path: 'buy', component: BuyingFormComponent
+        path: 'buy/:buyingCost', component: BuyingFormComponent
     },
     {
-        path: 'sell', component: SellingFormComponent
+        path: 'sell/:avgPrice', component: SellingFormComponent
     },
     {
         path: '', pathMatch: 'full', redirectTo: '/myPortfolio'

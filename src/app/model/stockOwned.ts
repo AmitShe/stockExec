@@ -3,4 +3,5 @@ export interface StockOwned {
     numberOfStockBuySell: number;
     buyingPrice: number;
     dateOfPurchase: number;
+    profitPerDeal: number;
 }

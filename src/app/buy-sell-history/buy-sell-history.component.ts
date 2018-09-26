@@ -14,10 +14,18 @@ export class BuySellHistoryComponent implements OnInit {
   stockInformationArray: Array<StockOwned>;
   sumOfHistory: number = 0;
 
+  // calcSumOfHistory(){
+  //   this.stockInformation.subscribe(a => {
+  //     a.forEach(stock => {
+  //       this.sumOfHistory= this.sumOfHistory + +stock.profitPerDeal;
+  //     })
+  //   } )
+  // }
+
   calcSumOfHistory(){
     this.stockInformation.subscribe(a => {
       a.forEach(stock => {
-        this.sumOfHistory= this.sumOfHistory + +(stock.buyingPrice*stock.numberOfStockBuySell);
+        this.sumOfHistory= this.sumOfHistory + +stock.profitPerDeal;
       })
     } )
   }
@@ -26,6 +34,8 @@ export class BuySellHistoryComponent implements OnInit {
   this.stockInformation = this.stockService.stockBuySellHistory$;
   this.stockInformation.subscribe(x => this.stockInformationArray = x);
   this.calcSumOfHistory();
+  // this.sumOfHistory = this.stockService.sumOfHistory$;
+  
   }
 
 

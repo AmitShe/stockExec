@@ -16,11 +16,18 @@
       <td mat-cell *matCellDef="let element"> {{element.stockOwned}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="StockQuantityAvgBuyingPrice">
+      <th mat-header-cell *matHeaderCellDef> Avg Buying Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.avgBuyingPrice | number : '1.2-2'}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="SellThisStock">
       <th mat-header-cell *matHeaderCellDef> Sell This Stock </th>
       <td mat-cell *matCellDef="let element">  <button (click)="selectStockToSell(element)"> Sell ! ! !</button> </td>
     </ng-container>
     
-    <tr mat-header-row *matHeaderRowDef="['StockSymbol', 'StockName', 'StockQuantity', 'SellThisStock']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['StockSymbol', 'StockName', 'StockQuantity', 'SellThisStock'];"></tr>
+    <tr mat-header-row *matHeaderRowDef="['StockSymbol', 'StockName', 'StockQuantity', 'StockQuantityAvgBuyingPrice', 'SellThisStock']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['StockSymbol', 'StockName', 'StockQuantity', 'StockQuantityAvgBuyingPrice', 'SellThisStock'];"></tr>
   </table>
+
+  <!-- <h2>Total cost/profit is: {{totalCostPrafitFromService | currency }}</h2> -->
