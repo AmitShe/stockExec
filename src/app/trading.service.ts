@@ -42,36 +42,61 @@ export class TradingService {
       stockOwned: quantityToBuy,
     };
     if (this.stockIHave$.getValue().find(s => s.symbol === this.selectedStock$.value.symbol)) {
-      this.stockIHave$.subscribe(a => {
+      this.stockIHave$.toPromise().then(a => {
         const index = a.indexOf(this.stockIHave$.getValue().find(s => s.symbol === this.selectedStock$.value.symbol));
         a[index].stockOwned = +quantityToBuy + +a[index].stockOwned;
       }
       )
+      /* 
+       this.stockIHave$.subscribe(a => {
+        const index = a.indexOf(this.stockIHave$.getValue().find(s => s.symbol === this.selectedStock$.value.symbol));
+        a[index].stockOwned = +quantityToBuy + +a[index].stockOwned;
+      }
+      )
+       */
     } else {
       this.stockIHave$.value.push(newStockToAdd);
     }
   }
 
-  sellStock(quantityToSell: number) {
-    this.http.get<any>(`${environment.serverUrl}/sell/${this.selectedStock.symbol}/${quantityToSell}`).subscribe(
-      x => {
-        // console.log(`you sold ${this.selectedStock.name}`);
-      }
-    );
-    this.getInitialInfo();
-    this.router.navigate(['/', 'myPortfolio']);
-  }
+  // sellStock(quantityToSell: number) {
+  //   this.http.get<any>(`${environment.serverUrl}/sell/${this.selectedStock.symbol}/${quantityToSell}`).subscribe(
+  //     x => {
+  //       // console.log(`you sold ${this.selectedStock.name}`);
+  //     }
+  //   );
+  //   this.getInitialInfo();
+  //   this.router.navigate(['/', 'myPortfolio']);
+  // }
 
-  buyStock(quantityToBuy: number) {
-    
-    this.http.get<any>(`${environment.serverUrl}/buy/${this.selectedStock.symbol}/${quantityToBuy}`).toPromise(
-    ).then(() => {
-      this.getInitialInfo();
+  sellStock(quantityToSell: number) {
+    this.http.get<any>(`${environment.serverUrl}/sell/${this.selectedStock.symbol}/${quantityToSell}`).toPromise(
+    ).then(x => {
+      this.updateAfterAction(x);
       this.router.navigate(['/', 'myPortfolio']);
     }
     );
-
   }
+
+  buyStock(quantityToBuy: number) {
+    this.http.get<any>(`${environment.serverUrl}/buy/${this.selectedStock.symbol}/${quantityToBuy}`).toPromise(
+    ).then( x => {
+      this.updateAfterAction(x);
+      this.router.navigate(['/', 'myPortfolio']);
+    }
+    );
+  }
+
+updateAfterAction(stockInfo: JSON){
+  this.stockBuySellHistory$ = new BehaviorSubject<Array<StockOwned>>([]);
+  this.stockIHave$ = new BehaviorSubject<Array<stockPortfolio>>([]);
+    for (let i = 0; i < stockInfo['history'].length; i++) {
+      this.addDataHistory(stockInfo['history'][i]);
+    }
+    for (let i = 0; i < stockInfo['having'].length; i++) {
+      this.addDataIHave(stockInfo['having'][i]);
+    }
+}
 
   calculateStockQuantity(stockTolook: Stock) {
     return this.stockBuySellHistory$.getValue().filter(
@@ -121,6 +146,7 @@ export class TradingService {
       }
     );
   }
+
   clearDate() {
     this.stocksList$ = new BehaviorSubject<Array<Stock>>([]);
     this.stockBuySellHistory$ = new BehaviorSubject<Array<StockOwned>>([]);

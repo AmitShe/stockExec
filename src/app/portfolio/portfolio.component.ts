@@ -12,10 +12,12 @@ import { Router } from '@angular/router';
 })
 export class PortfolioComponent implements OnInit {
 
-  stockInformation: Observable<Array<stockPortfolio>>;
+  stockInformation: Observable<Array<stockPortfolio>>; // change to stock!!!!
   stockInformationArray: Array<stockPortfolio>;
+
   
-  selectStockToSell(selectedStock: Stock){
+  selectStockToSell(selectedStockPortfolio: stockPortfolio){
+    const selectedStock: Stock = this.stockService.stocksList$.getValue().find(stock => stock.symbol === selectedStockPortfolio.symbol)
     this.stockService.updateSelectedStock(selectedStock);
     this.router.navigate(['/', 'sell']);
   }

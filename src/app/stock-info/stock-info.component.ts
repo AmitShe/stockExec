@@ -20,10 +20,10 @@ export class StockInfoComponent implements OnInit {
     this.router.navigate(['/', 'buy']);
   }
 
-  selectStockToSell(selectedStock: Stock){
-    this.stockService.updateSelectedStock(selectedStock);
-    this.router.navigate(['/', 'sell']);
-  }
+  // selectStockToSell(selectedStock: Stock){
+  //   this.stockService.updateSelectedStock(selectedStock);
+  //   this.router.navigate(['/', 'sell']);
+  // }
 
 
 

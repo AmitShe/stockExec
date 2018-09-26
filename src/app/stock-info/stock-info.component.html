@@ -32,14 +32,14 @@
                     <button (click)="selectStockToBuy(element)">Buy</button>
                    </td>
               </ng-container>
-
+<!-- 
               <ng-container matColumnDef="Sell">
                   <th mat-header-cell *matHeaderCellDef> Sell Stock </th>
                   <td mat-cell *matCellDef="let element">
                     <button (click)="selectStockToSell(element)">Sell</button>
                    </td>
                 </ng-container>
-  
-                <tr mat-header-row *matHeaderRowDef="['Name', 'OpanPrice', 'CurrentPrice', 'Change', 'Buy', 'Sell']"></tr>
-                <tr mat-row *matRowDef="let row; columns: ['Name', 'OpanPrice', 'CurrentPrice', 'Change', 'Buy', 'Sell'];"></tr>
+   -->
+                <tr mat-header-row *matHeaderRowDef="['Name', 'OpanPrice', 'CurrentPrice', 'Change', 'Buy']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['Name', 'OpanPrice', 'CurrentPrice', 'Change', 'Buy'];"></tr>
               </table>
