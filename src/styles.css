@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.stockUp
+{
+  /* background:red; */
+  background: lightgreen;
+}
+.stockDown
+{
+  /* background:red; */
+  background: red;
+}
+
+.arrowUp{
+  display: block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: url(https://www.iconexperience.com/_img/v_collection_png/256x256/shadow/arrow2_up_green.png) no-repeat;
+  width: 18px;
+  height: 23px;
+}
+
+
+
+.arrowDown{
+  display: block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: url(https://static8.depositphotos.com/1478919/978/v/950/depositphotos_9789313-stock-illustration-groundbreaking-arrow-goes-down-red.jpg) no-repeat;
+  width: 18px;
+  height: 23px;
+  /* padding-left: 180px; */
+}
+
+/* table, th, td {
+  text-align: center;
+  border: 1px solid black; 
+}
+table {
+  border-collapse: collapse;
+} */
+
+img{
+  width:60px;
+}

@@ -1,0 +1,21 @@
+<h1>
+  buying: {{(selectedStockFromServerObservite | async)?.name}}
+</h1>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <label for="stockName">Stock name: {{(selectedStockFromServerObservite | async)?.name}} ({{(selectedStockFromServerObservite
+      | async)?.symbol}}) </label>
+  </div>
+  <div>
+    <label for="buyPrice">Stock price: {{(selectedStockFromServerObservite | async)?.currentPrice | currency}}</label>
+  </div>
+  <div>
+      <mat-form-field class="example-full-width">
+    <input type="text" matInput placeholder="how much to buy" formControlName="howMuchTobuy">
+    </mat-form-field>
+  </div>
+  <p>
+    <button mat-button type="submit" value="buy stock">Buy</button>
+  </p>
+</form>

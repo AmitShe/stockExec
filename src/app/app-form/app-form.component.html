@@ -1,0 +1,11 @@
+<button mat-button [matMenuTriggerFor]="menu">Go To</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item [routerLink]="['/', 'myPortfolio']" routerLinkActive='active'>My Portfolio</button>
+  <button mat-menu-item [routerLink]="['/', 'history']" routerLinkActive='active'>Buy Sell History</button>
+</mat-menu>
+
+<app-stock-info></app-stock-info>
+<br>
+<br>
+
+<router-outlet></router-outlet>
