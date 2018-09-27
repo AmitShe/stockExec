@@ -12,38 +12,12 @@ import { MatPaginator } from '@angular/material';
 export class BuySellHistoryComponent implements OnInit {
   stockInformation: Observable<Array<StockOwned>>;
   stockInformationArray: Array<StockOwned>;
-  sumOfHistory: number = 0;
-
-  // calcSumOfHistory(){
-  //   this.stockInformation.subscribe(a => {
-  //     a.forEach(stock => {
-  //       this.sumOfHistory= this.sumOfHistory + +stock.profitPerDeal;
-  //     })
-  //   } )
-  // }
-
-  calcSumOfHistory(){
-    this.stockInformation.subscribe(a => {
-      a.forEach(stock => {
-        this.sumOfHistory= this.sumOfHistory + +stock.profitPerDeal;
-      })
-    } )
-  }
 
   constructor(private stockService: TradingService) { 
   this.stockInformation = this.stockService.stockBuySellHistory$;
   this.stockInformation.subscribe(x => this.stockInformationArray = x);
-  this.calcSumOfHistory();
-  // this.sumOfHistory = this.stockService.sumOfHistory$;
-  
   }
-
-
   
   ngOnInit() {
-    
   }
-
 }
-
-

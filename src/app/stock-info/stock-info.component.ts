@@ -20,13 +20,6 @@ export class StockInfoComponent implements OnInit {
     this.router.navigate(['/', 'buy', selectedStock.currentPrice]);
   }
 
-  // selectStockToSell(selectedStock: Stock){
-  //   this.stockService.updateSelectedStock(selectedStock);
-  //   this.router.navigate(['/', 'sell']);
-  // }
-
-
-
   constructor(private router: Router, private stockService: TradingService) {
     this.stockInformation = this.stockService.stocksList$;
     this.stockInformation.subscribe(x => this.stockInfoArray = x);

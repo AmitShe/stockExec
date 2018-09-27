@@ -30,4 +30,4 @@
     <tr mat-row *matRowDef="let row; columns: ['StockSymbol', 'StockName', 'StockQuantity', 'StockQuantityAvgBuyingPrice', 'SellThisStock'];"></tr>
   </table>
 
-  <!-- <h2>Total cost/profit is: {{totalCostPrafitFromService | currency }}</h2> -->
+  <h2>Total cost/profit is: {{sumOfHistory | currency }}</h2>

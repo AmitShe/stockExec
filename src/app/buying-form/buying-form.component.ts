@@ -12,13 +12,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BuyingFormComponent implements OnInit {
 
-  // stockToBuy: Stock;
   selectedStockFromServerObservite: Observable<Stock>;
   form: FormGroup;
 buyingCost: number;
 
   save(){
-    // alert(`Buy: you got it ! ! !`);
     if (this.form.valid){
       this.stockService.buyStock(this.form.value.howMuchTobuy, this.buyingCost);
     }

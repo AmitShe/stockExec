@@ -101,20 +101,20 @@ export class TradingService {
   //   this.router.navigate(['/', 'myPortfolio']);
   // }
 
-  sellStock(quantityToSell: number, avgPrice: number) {
+  async sellStock(quantityToSell: number, avgPrice: number) {
     //////////// add value for deal profet. (curr - avg) * quantity
     const Profit = (this.selectedStock.currentPrice - avgPrice) * quantityToSell;
-    this.http.get<any>(`${environment.serverUrl}/sell/${this.selectedStock.symbol}/${quantityToSell}/${this.selectedStock.currentPrice}/${Profit}`).toPromise(
+    await this.http.get<any>(`${environment.serverUrl}/sell/${this.selectedStock.symbol}/${quantityToSell}/${Profit}`).toPromise(
     ).then(x => {
-      this.updateAfterAction(x);
+       this.updateAfterAction(x);
       this.router.navigate(['/', 'myPortfolio']);
     }
     );
   }
 
-  buyStock(quantityToBuy: number, stockBuyingCost: number) {
+  async buyStock(quantityToBuy: number, stockBuyingCost: number) {
     const buyingCost = stockBuyingCost * quantityToBuy;
-    this.http.get<any>(`${environment.serverUrl}/buy/${this.selectedStock.symbol}/${quantityToBuy}/${this.selectedStock.currentPrice}/${buyingCost}`).toPromise(
+    await this.http.get<any>(`${environment.serverUrl}/buy/${this.selectedStock.symbol}/${quantityToBuy}/${this.selectedStock.currentPrice}/${buyingCost}`).toPromise(
     ).then(x => {
       this.updateAfterAction(x);
       this.router.navigate(['/', 'myPortfolio']);
@@ -122,7 +122,7 @@ export class TradingService {
     );
   }
 
-  async updateAfterAction(stockInfo: JSON) {
+  updateAfterAction(stockInfo: JSON) {
     this.stockBuySellHistory$ = new BehaviorSubject<Array<StockOwned>>([]);
     this.stockIHave$ = new BehaviorSubject<Array<stockPortfolio>>([]);
     for (let i = 0; i < stockInfo['history'].length; i++) {
@@ -131,7 +131,6 @@ export class TradingService {
     for (let i = 0; i < stockInfo['having'].length; i++) {
       this.addDataIHave(stockInfo['having'][i]);
     }
-    // await this.calcSumOfHistory();
   }
 
   calculateStockQuantity(stockTolook: Stock) {

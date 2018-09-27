@@ -19,24 +19,24 @@ export class SellingFormComponent implements OnInit {
   avgPrice: number;
   current: number;
 
-  save(){
-if (this.form.valid){
-  this.stockService.sellStock(this.form.value.howMuchToSell, this.avgPrice);
-}else{
-  alert(`sell quantity is not valid.
+  save() {
+    if (this.form.valid) {
+      this.stockService.sellStock(this.form.value.howMuchToSell, this.avgPrice);
+    } else {
+      alert(`sell quantity is not valid.
 must be less then owned quantity and not empty!!!`);
-}
+    }
   }
 
   constructor(private activatedRoute: ActivatedRoute, private stockService: TradingService, private fb: FormBuilder) {
     activatedRoute.params.subscribe(params => {
       this.avgPrice = params['avgPrice'];
     })
+    this.current = this.stockService.selectedStock.currentPrice;
     this.selectedStockFromServerObservite = this.stockService.selectedStock$;
-    // this.current = this.stockService.selectedStock.currentPrice;
     this.selectedStockQuantityFromServerObservite = this.stockService.selectedStockQuantity$;
     this.selectedStockQuantityFromServer = this.stockService.selectedStockQuantity$.getValue();
-    this.form= fb.group({
+    this.form = fb.group({
       howMuchToSell: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern("^[0-9]*$"), Validators.max(this.selectedStockQuantityFromServer)])]
     });
   }

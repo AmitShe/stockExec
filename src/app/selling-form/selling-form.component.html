@@ -12,7 +12,7 @@
     </div>
     <div>
       <label for="avgPrice">Stock Avg buying price: {{avgPrice | currency}}</label>
-      <label *ngIf="current > avgPrice" for="test1" style="color: lightgreen"> current more then avg</label>
+      <label *ngIf="current > avgPrice" for="test1" style="color: green"> current more then avg</label>
       <label *ngIf="current < avgPrice" for="test2" style="color: red"> current less then avg</label>
     </div>
     <div>
