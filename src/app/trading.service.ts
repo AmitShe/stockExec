@@ -22,87 +22,10 @@ export class TradingService {
   selectedStockQuantity$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   stocksList$: BehaviorSubject<Array<Stock>> = new BehaviorSubject<Array<Stock>>([]);
   stockIHave$: BehaviorSubject<Array<stockPortfolio>> = new BehaviorSubject<Array<stockPortfolio>>([]);
-  // totalCostPrafit: number = 0;
   sumOfHistory: number = 0;
   sumOfHistory$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
-
-  /////////////////////////////////////
-  /*
-  calcSumOfHistory() {
-    this.sumOfHistory=0;
-    this.stockBuySellHistory$.toPromise().then(a => {
-      a.forEach(stock => {
-        this.sumOfHistory = this.sumOfHistory + +stock.profitPerDeal;
-      console.log("profitPerDeal: ", stock.profitPerDeal);
-      })
-      console.log("sumOfHistory: ", this.sumOfHistory);
-    this.sumOfHistory$.next(this.sumOfHistory);
-    }).catch(x => {
-    });
-  }
-  */
-
-
-  /* 
-  calculateStockQuantity(stockTolook: Stock) {
-    return this.stockBuySellHistory$.getValue().filter(
-      stocks => stocks.symbol === stockTolook.symbol)
-      .reduce(
-        (accumulator, currentValue) => accumulator + currentValue.numberOfStockBuySell
-        , 0
-      );
-  }
-  */
-
-  // addToHistory(quantityToBuy: number) {
-  //   const historyToAdd: StockOwned = {
-  //     symbol: this.selectedStock$.value.symbol,
-  //     numberOfStockBuySell: quantityToBuy,
-  //     buyingPrice: this.selectedStock$.value.currentPrice,
-  //     dateOfPurchase: Date.now()
-  //   };
-  //   this.addDataHistory(historyToAdd);
-  // }
-
-  // addToPortfolio(quantityToBuy: number) {
-  //   const newStockToAdd: stockPortfolio = {
-  //     symbol: this.selectedStock$.value.symbol,
-  //     name: this.selectedStock$.value.name,
-  //     stockOwned: quantityToBuy,
-  //     avgBuyingPrice: this.selectedStock$.value.currentPrice
-  //   };
-  //   if (this.stockIHave$.getValue().find(s => s.symbol === this.selectedStock$.value.symbol)) {
-  //     this.stockIHave$.toPromise().then(a => {
-  //       const index = a.indexOf(this.stockIHave$.getValue().find(s => s.symbol === this.selectedStock$.value.symbol));
-  //       a[index].stockOwned = +quantityToBuy + +a[index].stockOwned;
-  //       a[index].avgBuyingPrice = ( (a[index].avgBuyingPrice * a[index].stockOwned ) + (this.selectedStock$.value.currentPrice *  quantityToBuy ) ) / (a[index].stockOwned + quantityToBuy) 
-  //     }
-  //     )
-  //     /* 
-  //      this.stockIHave$.subscribe(a => {
-  //       const index = a.indexOf(this.stockIHave$.getValue().find(s => s.symbol === this.selectedStock$.value.symbol));
-  //       a[index].stockOwned = +quantityToBuy + +a[index].stockOwned;
-  //     }
-  //     )
-  //      */
-  //   } else {
-  //     this.stockIHave$.value.push(newStockToAdd);
-  //   }
-  // }
-
-  // sellStock(quantityToSell: number) {
-  //   this.http.get<any>(`${environment.serverUrl}/sell/${this.selectedStock.symbol}/${quantityToSell}`).subscribe(
-  //     x => {
-  //       // console.log(`you sold ${this.selectedStock.name}`);
-  //     }
-  //   );
-  //   this.getInitialInfo();
-  //   this.router.navigate(['/', 'myPortfolio']);
-  // }
-
   async sellStock(quantityToSell: number, avgPrice: number) {
-    //////////// add value for deal profet. (curr - avg) * quantity
     const Profit = (this.selectedStock.currentPrice - avgPrice) * quantityToSell;
     await this.http.get<any>(`${environment.serverUrl}/sell/${this.selectedStock.symbol}/${quantityToSell}/${Profit}`).toPromise(
     ).then(x => {
@@ -166,7 +89,6 @@ export class TradingService {
 
   async getInitialInfo() {
     this.clearDate();
-    // console.log('before get stock');
     await this.http.get<any>(`${environment.serverUrl}/stock`).subscribe(
       x => {
         for (let i = 0; i < x['list'].length; i++) {
@@ -180,7 +102,6 @@ export class TradingService {
         }
       }
     );
-    // await this.calcSumOfHistory();
   }
 
   clearDate() {
